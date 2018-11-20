@@ -34,7 +34,7 @@ int main()
         }                                           //Line 15
         catch (string messageStr)                   //Line 16
         {                                           //Line 17
-            cout << messageStr
+            cout << "Line 18: " << messageStr
                  << endl;                           //Line 18
             fin.clear();                            //Line 20
             fin.ignore(100, '\n');                  //Line 21
