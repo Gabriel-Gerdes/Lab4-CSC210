@@ -79,38 +79,54 @@ void readData(LinkedStackType<int> & s)
 }
 
 // a function to convert a decimal number to base n
-void converter(LinkedStackType<int> stk)
+void converter(LinkedStackType<int> original)
 {
     string getString[] = {"0", "1", "2", "3", "4", "5", "6", "7",
                           "8", "9", "A", "B", "C", "D", "E", "F" };
-    //int deciOrig;
-    int deciSave = stk.top();
-    int divis = 16;
+    int deciSave = original.top();
+    int divis;
     int quot;
     string remainder = "";
     LinkedStackType<string> localTemp;
     LinkedStackType<string> local;
+    LinkedStackType<int> stk;
 
-    while(!stk.isEmptyStack())
-	{
-        deciSave = stk.top();
-        do{
-            quot = deciSave/divis;
-            localTemp.push(getString[deciSave%divis]);
-            deciSave = quot;
-        }while(quot != 0);
-
-        while(!localTemp.isEmptyStack())
+    for(int i =0; i < 3; i++ )
+    {
+        switch(i)
         {
-            remainder += localTemp.top();
-            localTemp.pop();
+            case 0:
+                divis = 16;
+                break;
+            case 1:
+                divis = 8;
+                break;
+            case 2:
+                divis = 2;
+                break;
         }
+        stk = original;
+        while(!stk.isEmptyStack())
+        {
+            deciSave = stk.top();
+            do{
+                quot = deciSave/divis;
+                localTemp.push(getString[deciSave%divis]);
+                deciSave = quot;
+            }while(quot != 0);
 
-        local.push(remainder);
-        stk.pop();
-        remainder = "";
-	}
-    printOrigOrder(local);
+            while(!localTemp.isEmptyStack())
+            {
+                remainder += localTemp.top();
+                localTemp.pop();
+            }
+
+            local.push(remainder);
+            stk.pop();
+            remainder = "";
+        }
+        printOrigOrder(local);
+    }
 }
 
 void printOrigOrder(LinkedStackType<int> stk)
