@@ -140,7 +140,7 @@ void LinkedStackType<Type>::copyStack
 template <class Type>
 int LinkedStackType<Type>::getSize() const
 {
-    return 0;                    // returns the size of the stack
+    return size;                    // returns the size of the stack
 }
 
 template <class Type>
@@ -149,8 +149,8 @@ void LinkedStackType<Type>::sortLinkedStack()
 	bool swapped = true;      				 // assume exchanges will happen
     nodeType<Type> *curr;            //pointer to traverse the list
     nodeType<Type> *next;           //pointer for progression
-
-	for(int i = 0; swapped && i < size; i++) // outer loop
+    int length = size;
+	for(int i = 0; swapped && i < length; i++) // outer loop
 	{
 	    swapped = false;					 //   reset the flag for no exchanges
 
@@ -164,9 +164,10 @@ void LinkedStackType<Type>::sortLinkedStack()
                 cout << size << "swapped" << curr->info << endl;
                 swapped = swapData(curr->info, next->info);   //bubble sort.
             }
-        }
-        curr = next;            // advance curr pointer.
-        next = next->link;      // advance next pointer.
+
+            curr = next;            // advance curr pointer.
+            next = next->link;      // advance next pointer.
+		}
      }   //end of inner loop;
 }  // uses an optimized bubble sort to sort the stack in ascending order
 
