@@ -171,41 +171,6 @@ void LinkedStackType<Type>::sortLinkedStack()
      }   //end of inner loop;
 }  // uses an optimized bubble sort to sort the stack in ascending order
 
-
-/*
-	bool swapped = true;      				 // assume exchanges will happen
-    nodeType<Type> *curr;            //pointer to traverse the list
-    nodeType<Type> *next;           //pointer for progression
-
-	for(int i = 0; swapped && i < count; i++) // outer loop
-	{
-	    swapped = false;					 //   reset the flag for no exchanges
-
-	    curr = first;           //primes traversal pointers
-	    next = curr -> link;
-
-    	for(int j = 0; j < count - i - 1; j++)//   inner loop does not check sorted items
-		{
-		    if(field == "GPA")  //check for GPA sort request.
-            {
-                if(curr->stuRecord.fGpa < next->stuRecord.fGpa)		 //     if current element bigger than next
-                {
-                    swapped = swapData(curr->stuRecord, next->stuRecord);   //bubble sort.
-                }
-            }
-            else    //Default to Name sort
-            {
-                if(curr->stuRecord.name > next->stuRecord.name)		 //     if current element bigger than next
-                {
-                    swapped = swapData(curr->stuRecord, next->stuRecord);   //bubble sort.
-                }
-            }
-            curr = next;            // advance curr pointer.
-            next = next->link;      // advance next pointer.
-    	}   //end of inner loop;
-	}
-*/
-
 template <class Type>
 bool LinkedStackType<Type>::swapData(Type & dataA, Type & dataB)
 {
