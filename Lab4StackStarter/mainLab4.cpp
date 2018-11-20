@@ -19,10 +19,8 @@ void printOrigOrder(LinkedStackType<string> );
 void printStackFromTopDown(LinkedStackType<int> );
 void printStackFromTopDown(LinkedStackType<string> );
 
-///THIS IS SOOO NNEEWWW
-///Ohnowww
 
-ifstream fin ("Input0.txt");        /// input file without any errors
+ifstream fin ("Input.txt");        /// input file without any errors
 ofstream fout("Output.txt");
 
 int main()
@@ -30,11 +28,11 @@ int main()
 	LinkedStackType<int> iStack;    // stack object accepting int inputs
 	title();						// prints the title
 	readData(iStack);               // read the data into the stack (pass by ref)
-	converter(iStack);                    // convert each int to its respective base
+	//converter(iStack);                    // convert each int to its respective base
 
 	//printStackFromTopDown(iStack);     // demonstrates an incorrect LIFO printing of data
 	printOrigOrder(iStack);         // demonstrates printing data in orig order as read
-	//iStack.sortLinkedStack();
+	iStack.sortLinkedStack();
 	printOrigOrder(iStack);
                           // call the class sort function
                           // print the sorted stack & write to InputS.txt
@@ -56,12 +54,28 @@ void title()
 
 void readData(LinkedStackType<int> & s)
 {
-    int deciOrig;                  // declare local int for reading
 
-    fin >> deciOrig;                // priming read for the 1st decimal number
-    while( !fin.eof() )             // loop while data exists
-    {
-        s.push(deciOrig);           // push the int into the stack
+    int deciOrig;                  // declare local int for reading
+    string str = "-------------- Input error ignored ---------------";            //Line 3
+
+    fin >> deciOrig;
+
+    while(!fin.eof())                               //Line 4
+    {                                               //Line 5
+        try                                         //Line 6
+        {                                           //Line 7
+            if (!fin)                               //Line 11
+                throw str;                          //Line 12
+
+            s.push(deciOrig);           // push the int into the stack
+        }                                           //Line 15
+        catch (string messageStr)                   //Line 16
+        {                                           //Line 17
+            cout <<  messageStr << endl;                           //Line 18
+            fout << messageStr << endl;
+            fin.clear();                            //Line 20
+            fin.ignore(100, '\n');                  //Line 21
+        }
         fin >> deciOrig;            // read the next int
     }
 }
@@ -79,6 +93,7 @@ void converter(LinkedStackType<int> stk)
     LinkedStackType<string> local;
     while(!stk.isEmptyStack())
 	{
+        deciSave = stk.top();
 	    cout << stk.top() << endl;
             int conversionNumber = stk.top();
             int digits = 0;
@@ -95,7 +110,7 @@ void converter(LinkedStackType<int> stk)
             local.push(remainder);
             stk.pop();
             remainder = "";
-            deciSave = stk.top();
+
 	}
     printOrigOrder(local);
 }
