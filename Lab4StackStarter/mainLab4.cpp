@@ -79,54 +79,51 @@ void readData(LinkedStackType<int> & s)
 }
 
 // a function to convert a decimal number to base n
-void converter(LinkedStackType<int> original)
+void converter(LinkedStackType<int> stk)
 {
     string getString[] = {"0", "1", "2", "3", "4", "5", "6", "7",
                           "8", "9", "A", "B", "C", "D", "E", "F" };
-    int deciSave = original.top();
+	int deciOrig = stk.top();
+    int deciSave = deciOrig;
     int divis;
     int quot;
     string remainder = "";
-    LinkedStackType<string> localTemp;
     LinkedStackType<string> local;
-    LinkedStackType<int> stk;
-
-    for(int i =0; i < 3; i++ )
+	
+	while(!stk.isEmptyStack())
     {
-        switch(i)
-        {
-            case 0:
-                divis = 16;
-                break;
-            case 1:
-                divis = 8;
-                break;
-            case 2:
-                divis = 2;
-                break;
-        }
-        stk = original;
-        while(!stk.isEmptyStack())
-        {
-            deciSave = stk.top();
-            do{
+		for(int i =0; i < 3; i++ )
+		{
+			deciSave = deciOrig;
+			switch(i)
+			{
+				case 0:
+					divis = 16;
+					break;
+				case 1:
+					divis = 8;
+					break;
+				case 2:
+					divis = 2;
+					break;
+			}
+			do{
                 quot = deciSave/divis;
-                localTemp.push(getString[deciSave%divis]);
+                local.push(getString[deciSave%divis]);
                 deciSave = quot;
-            }while(quot != 0);
+			}while(quot != 0);
 
-            while(!localTemp.isEmptyStack())
-            {
-                remainder += localTemp.top();
-                localTemp.pop();
-            }
-
-            local.push(remainder);
-            stk.pop();
-            remainder = "";
+			while(!local.isEmptyStack())
+			{
+				remainder += local.top();
+				local.pop();
+			}
+			cout << setw(35) << Right << remainder; 
+			remainder = "";
         }
-        printOrigOrder(local);
-    }
+		stk.pop();
+		deciOrig = stk.top();
+	}
 }
 
 void printOrigOrder(LinkedStackType<int> stk)
