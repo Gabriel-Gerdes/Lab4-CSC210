@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <math.h>
 #include "LinkedStack.cpp"            // more implementation is necessary
 
 using namespace std;
@@ -16,6 +17,7 @@ void converter();
 void readData(LinkedStackType<int> & );
 void printOrigOrder(LinkedStackType<int> );
 void printSortStack(LinkedStackType<int> );
+void printBaseStack(LinkedStackType<string> &, int);
 
 ifstream fin ("Input.txt");         // input file
 ofstream fout("Output.txt");        // Output file for complete report
@@ -41,12 +43,12 @@ void titleOrig()
 {
     cout << endl;
 	cout << setw(63) << "T H E    O R I G I N A L    U N S O R T E D    L I S T" << endl;
-	cout << setw(63) << "======================================================" << endl << endl << endl;
+	cout << setw(63) << "======================================================" << endl << endl;
 	//cout << setw(33) << "Written by" << " Your Names Here" << endl  << endl  << endl;
 
 	fout << endl;
 	fout << setw(63) << "T H E    O R I G I N A L    U N S O R T E D    L I S T" << endl;
-	fout << setw(63) << "======================================================" << endl << endl << endl;
+	fout << setw(63) << "======================================================" << endl << endl;
 	//fout << setw(33) << "Written by" << " Your Names Here" << endl  << endl  << endl;
 }
 
@@ -71,9 +73,6 @@ void readData(LinkedStackType<int> & s)
             fin.clear();
             fin.ignore(100, '\n');
         }
-        fin >> deciOrig;
-
-        s.push(deciOrig);           // push the int into the stack
         fin >> deciOrig;            // read the next int
     }
 }
@@ -81,10 +80,54 @@ void readData(LinkedStackType<int> & s)
 // a function to convert a decimal number to base n
 void converter()
 {
-    // cleverly converts an input index to a one letter string corresponding to base digits
+    cout << endl;
+	cout << setw(63) << "T H E    B A S E    C O N V E R T E R" << endl;
+	cout << setw(63) << "=====================================" << endl << endl;
+	cout << setw(65) << "Written by Gabriel Gerdes and Noah Teeter" << endl  << endl;
+
+	//fout header
+
+    LinkedStackType<int> stk;
+    readData(stk);
+    stk.sortLinkedStack();
     string getString[] = {"0", "1", "2", "3", "4", "5", "6", "7",
                           "8", "9", "A", "B", "C", "D", "E", "F" };
-    /// Needs work
+	int deciOrig;
+    int deciSave;
+    int i;
+    int divis;
+    int quot;
+    int remainder;
+    string sRemainder;               //
+    int base[] = {16, 8, 2};        //an array of bases used
+
+
+    LinkedStackType<string> local;  //create a local stack of strings
+
+	while(!fou2.eof())
+    {
+		deciSave = deciOrig;
+		cout << setw(14) << deciOrig;
+		fout << setw(14) << deciOrig;
+		for(int i = 0; i < 3; i++ )
+		{
+		    divis = base[i];      //divisor is the base to convert
+			do
+			{
+			    quot = deciSave /divis;
+			    remainder = deciSave % divis;   //get remainder
+			    sRemainder = getString[remainder];   //convert to string
+			    local.push(sRemainder);     //push string on stack
+			    deciSave = quot;        //quotient now a new test
+			}while(quot != 0);
+
+			deciSave = deciOrig;        //start next conversion with new base
+			printBaseStack(local, i);   //output the elements of the stack
+        }
+        cout << endl;
+        fout << endl;
+
+	}
 }
 
 void printOrigOrder(LinkedStackType<int> stk)
@@ -110,12 +153,24 @@ void printOrigOrder(LinkedStackType<int> stk)
 void printSortStack(LinkedStackType<int> stk)
 {
 	cout << setw(51) << "T H E    S O R T E D    L I S T" << endl;
-	cout << setw(51) << "===============================" << endl << endl << endl;
+	cout << setw(51) << "===============================" << endl << endl;
 
 	fout << setw(51) << "T H E    S O R T E D    L I S T" << endl;
-	fout << setw(51) << "===============================" << endl << endl << endl;
+	fout << setw(51) << "===============================" << endl << endl;
 
+	while(!stk.isEmptyStack())
+	{
+	    cout << setw(40) << stk.top() << endl;      // look, but don't remove
+		fout << setw(40) << stk.top() << endl;      // look, but don't remove
+		fou2 << setw(40) << stk.top() << endl;
+		stk.pop();                                  // remove the top integer
+	}
+	cout << endl;
+	fout << endl;
+}
 
+void printBaseStack(LinkedStackType<string> & stk, int column)
+{
 
 }
 
