@@ -12,11 +12,7 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-void title();
-=======
 void titleOrig();
->>>>>>> Noah
 void converter();
 void readData(LinkedStackType<int> & );
 void printOrigOrder(LinkedStackType<int> );
@@ -32,7 +28,6 @@ int main()
 {
 	LinkedStackType<int> iStack;    // stack object accepting int inputs
 	readData(iStack);               // read the data into the stack (pass by ref)
-
 	titleOrig();					// prints the title
 	printOrigOrder(iStack);         // demonstrates printing data in orig order as read
     iStack.sortLinkedStack();       // call the class sort function
@@ -49,17 +44,17 @@ void titleOrig()
     cout << endl;
 	cout << setw(63) << "T H E    O R I G I N A L    U N S O R T E D    L I S T" << endl;
 	cout << setw(63) << "======================================================" << endl << endl;
+	//cout << setw(33) << "Written by" << " Your Names Here" << endl  << endl  << endl;
 
+	fout << endl;
+	fout << setw(63) << "T H E    O R I G I N A L    U N S O R T E D    L I S T" << endl;
+	fout << setw(63) << "======================================================" << endl << endl;
 	//fout << setw(33) << "Written by" << " Your Names Here" << endl  << endl  << endl;
 }
 
 void readData(LinkedStackType<int> & s)
 {
     int deciOrig;                  // declare local int for reading
-
-    fin.clear();
-    fin.seekg(0, ios::beg);
-
     string str = "--------------- Input error ignored ------------------";
 
     fin >> deciOrig;                // priming read for the 1st decimal number
@@ -99,12 +94,6 @@ void converter()
                           "8", "9", "A", "B", "C", "D", "E", "F" };
 	int deciOrig;
     int deciSave;
-<<<<<<< HEAD
-    int divis;
-    int quot;
-    string remainder = "";
-    LinkedStackType<string> local;
-=======
     int i;
     int divis;
     int quot;
@@ -137,82 +126,15 @@ void converter()
         }
         cout << endl;
         fout << endl;
->>>>>>> Noah
 
-	while(!stk.isEmptyStack())
-    {
-		deciOrig = stk.top();
-		for(int i = 0; i < 4; i++ )
-		{
-			deciSave = deciOrig;
-			switch(i)
-			{
-                case 0:
-                    divis = 10;
-                    break;
-				case 1:
-					divis = 16;
-					break;
-				case 2:
-					divis = 8;
-					break;
-				case 3:
-					divis = 2;
-					break;
-			}
-			do{
-                quot = deciSave/divis;
-                local.push(getString[deciSave%divis]);
-                deciSave = quot;
-			}while(quot != 0);
-
-			while(!local.isEmptyStack())
-			{
-				remainder += local.top();
-				local.pop();
-			}
-			cout << right << setw((40/(pow(1.05,divis)))) << remainder;
-			remainder = "";
-        }
-        cout << endl;
-		stk.pop();
 	}
 }
 
 void printOrigOrder(LinkedStackType<int> stk)
 {
-<<<<<<< HEAD
-    LinkedStackType<int> local;
-    while(!stk.isEmptyStack())
-	{
-	    local.push(stk.top());
-	    stk.pop();                                  // remove the top integer
-	}
-    while(!local.isEmptyStack())
-	{
-	    cout << setw(40) << local.top() << endl;      // look, but don't remove
-		fout << setw(40) << local.top() << endl;      // look, but don't remove
-		local.pop();                                  // remove the top integer
-	}
-	cout << endl;
-	fout << endl;
-}
-=======
     LinkedStackType<int> local;    // make a local stack
->>>>>>> Noah
 
     while(!stk.isEmptyStack())
-<<<<<<< HEAD
-	{
-	    local.push(stk.top());
-	    stk.pop();                                  // remove the top integer
-	}
-    while(!local.isEmptyStack())
-	{
-	    cout << setw(40) << local.top() << endl;      // look, but don't remove
-		fout << setw(40) << local.top() << endl;      // look, but don't remove
-		local.pop();                                  // remove the top integer
-=======
     {
         local.push(stk.top());      // take top element and push into local stack
         stk.pop();                  // remove top element of stk
@@ -242,17 +164,12 @@ void printSortStack(LinkedStackType<int> stk)
 		fout << setw(40) << stk.top() << endl;      // look, but don't remove
 		fou2 << setw(40) << stk.top() << endl;
 		stk.pop();                                  // remove the top integer
->>>>>>> Noah
 	}
 	cout << endl;
 	fout << endl;
 }
 
-<<<<<<< HEAD
-void printStackFromTopDown(LinkedStackType<string> stk)
-=======
 void printBaseStack(LinkedStackType<string> & stk, int column)
->>>>>>> Noah
 {
 
 }

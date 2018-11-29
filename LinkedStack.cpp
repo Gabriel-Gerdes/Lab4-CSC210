@@ -146,36 +146,31 @@ int LinkedStackType<Type>::getSize() const
 template <class Type>
 void LinkedStackType<Type>::sortLinkedStack()
 {
-	bool swapped = true;      				 // assume exchanges will happen
-    nodeType<Type> *curr;            //pointer to traverse the list
-    nodeType<Type> *next;           //pointer for progression
-    int length = size;
-	for(int i = 0; swapped && i < length; i++) // outer loop
-	{
-	    swapped = false;					 //   reset the flag for no exchanges
-
-	    curr = stackTop;           //primes traversal pointers
-	    next = curr -> link;
-
-    	for(int j = 0; j < size - i - 1; j++)//   inner loop does not check sorted items
-		{
-            if(curr->info > next->info)		 //     if current element bigger than next
+    bool swapped = true;
+    for(int i = 0; swapped && i < count; i++)   //outer loop
+                                                //swapped performs a short circuit senario
+    {
+        LinkedStackType<Type> *curr;                   //
+        LinkedStackType<Type> *next;                   //
+        swapped = false;
+        curr = first;
+        next = curr->link;
+        for(int j = 0; j < count - i - 1; j++)  //inner loop
+        {
+            if(field == "GPA")  /// Needs work
             {
-                cout << size << "swapped" << curr->info << endl;
-                swapped = swapData(curr->info, next->info);   //bubble sort.
+                if(curr->stuRecord.fGpa < next->stuRecord.fGpa) //desending output
+                    swapped = swapData(curr->stuRecord, next->stuRecord);
             }
+            else
+            {
+                if(curr->stuRecord.name > next->stuRecord.name) //ascending order
+                    swapped = swapData(curr->stuRecord, next->stuRecord);
+            }
+            curr = curr->link;
+            next = next->link;
 
-            curr = next;            // advance curr pointer.
-            next = next->link;      // advance next pointer.
-		}
-     }   //end of inner loop;
-}  // uses an optimized bubble sort to sort the stack in ascending order
+        }//end of inner for loop
+    }//end of outer for loop
 
-template <class Type>
-bool LinkedStackType<Type>::swapData(Type & dataA, Type & dataB)
-{
-    Type temp = dataA;  //adds data from A to Temp
-    dataA = dataB;      //copies data from B to A
-    dataB = temp;       //copies data from Temp to B.
-    return true;
 }
