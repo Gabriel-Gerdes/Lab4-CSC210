@@ -72,7 +72,7 @@ public:
       //Postcondition: The stack is changed and the top
       //               element is removed from the stack.
 
-    int getSize() const;	        /// implement this function
+    int getSize() const;
       // return the size of the stack
 
     void sortLinkedStack();         /// implement this function
