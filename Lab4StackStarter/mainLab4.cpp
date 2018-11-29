@@ -7,12 +7,13 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <math.h>
 #include "LinkedStack.cpp"            // more implementation is necessary
 
 using namespace std;
 
 void title();
-void converter(LinkedStackType<int> );
+void converter();
 void readData(LinkedStackType<int> & );
 void printOrigOrder(LinkedStackType<int> );
 void printOrigOrder(LinkedStackType<string> );
@@ -33,7 +34,7 @@ int main()
 	printOrigOrder(iStack);         // demonstrates printing data in orig order as read
 	iStack.sortLinkedStack();
 	printOrigOrder(iStack);
-	converter(iStack);                    // convert each int to its respective base
+	converter();                    // convert each int to its respective base
                           // call the class sort function
                           // print the sorted stack & write to InputS.txt
     fin.close();                    // close the input file (notice it was not used)
@@ -52,9 +53,11 @@ void title()
 
 void readData(LinkedStackType<int> & s)
 {
-
     int deciOrig;                  // declare local int for reading
     string str = "-------------- Input error ignored ---------------";            //Line 3
+
+    fin.clear();
+    fin.seekg(0, ios::beg);
 
     fin >> deciOrig;
 
@@ -79,54 +82,59 @@ void readData(LinkedStackType<int> & s)
 }
 
 // a function to convert a decimal number to base n
-void converter(LinkedStackType<int> original)
+void converter()
 {
+    cout << "Convert" << endl;
+    LinkedStackType<int> stk;
+    readData(stk);
+    stk.sortLinkedStack();
     string getString[] = {"0", "1", "2", "3", "4", "5", "6", "7",
                           "8", "9", "A", "B", "C", "D", "E", "F" };
-    int deciSave = original.top();
+	int deciOrig;
+    int deciSave;
     int divis;
     int quot;
     string remainder = "";
-    LinkedStackType<string> localTemp;
     LinkedStackType<string> local;
-    LinkedStackType<int> stk;
 
-    for(int i =0; i < 3; i++ )
+	while(!stk.isEmptyStack())
     {
-        switch(i)
-        {
-            case 0:
-                divis = 16;
-                break;
-            case 1:
-                divis = 8;
-                break;
-            case 2:
-                divis = 2;
-                break;
-        }
-        stk = original;
-        while(!stk.isEmptyStack())
-        {
-            deciSave = stk.top();
-            do{
+		deciOrig = stk.top();
+		for(int i = 0; i < 4; i++ )
+		{
+			deciSave = deciOrig;
+			switch(i)
+			{
+                case 0:
+                    divis = 10;
+                    break;
+				case 1:
+					divis = 16;
+					break;
+				case 2:
+					divis = 8;
+					break;
+				case 3:
+					divis = 2;
+					break;
+			}
+			do{
                 quot = deciSave/divis;
-                localTemp.push(getString[deciSave%divis]);
+                local.push(getString[deciSave%divis]);
                 deciSave = quot;
-            }while(quot != 0);
+			}while(quot != 0);
 
-            while(!localTemp.isEmptyStack())
-            {
-                remainder += localTemp.top();
-                localTemp.pop();
-            }
-
-            local.push(remainder);
-            stk.pop();
-            remainder = "";
+			while(!local.isEmptyStack())
+			{
+				remainder += local.top();
+				local.pop();
+			}
+			cout << right << setw((40/(pow(1.05,divis)))) << remainder;
+			remainder = "";
         }
-        printOrigOrder(local);
-    }
+        cout << endl;
+		stk.pop();
+	}
 }
 
 void printOrigOrder(LinkedStackType<int> stk)
