@@ -22,7 +22,7 @@ void printConvertedValue(LinkedStackType<string> &, int);
 ifstream fin ("Input.txt");         // input file
 ofstream fout("Output.txt");        // Output file for complete report
 ofstream fou2("InputS.txt");        //
-ifstream fin("InputS.txt");         //
+ifstream fin2("InputS.txt");         //
 
 int main()
 {
@@ -133,7 +133,7 @@ void converter()
     cout << setw(65) << "Written by Gabriel Gerdes and Noah Teeter" << endl  << endl;
 
     LinkedStackType<int> stk;
-    readData(stk, fin);
+    readData(stk, fin2);
     stk.sortLinkedStack(); ///This needs to be replaced by the process of reading in from the second file.
     
     int base[] = {16, 8, 2};        //an array of bases used
