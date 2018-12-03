@@ -14,7 +14,7 @@ using namespace std;
 
 void titleOrig();
 void converter();
-void readData(LinkedStackType<int> & );
+void readData(LinkedStackType<int> &, ostream&);
 void printOrigOrder(LinkedStackType<int> );
 void printSortStack(LinkedStackType<int> );
 void printConvertedValue(LinkedStackType<string> &, int);
@@ -22,12 +22,12 @@ void printConvertedValue(LinkedStackType<string> &, int);
 ifstream fin ("Input.txt");         // input file
 ofstream fout("Output.txt");        // Output file for complete report
 ofstream fou2("InputS.txt");        //
-//ofstream fin("InputS.txt");         //
+ifstream fin("InputS.txt");         //
 
 int main()
 {
     LinkedStackType<int> iStack;    // stack object accepting int inputs
-    readData(iStack);               // read the data into the stack (pass by ref)
+    readData(iStack, fin);               // read the data into the stack (pass by ref)
 
     titleOrig();					// prints the title
     printOrigOrder(iStack);         // demonstrates printing data in orig order as read
@@ -40,21 +40,21 @@ int main()
     return 0;						// return 0 to indicate OS is ok
 }
 
-void readData(LinkedStackType<int> & s)
+void readData(LinkedStackType<int> & s, ostream& stream)
 {
     int deciOrig;                  // declare local int for reading
 
-    fin.clear();
-    fin.seekg(0, ios::beg);
+    stream.clear();
+    stream.seekg(0, ios::beg);
 
     string str = "--------------- Input error ignored ------------------";
 
-    fin >> deciOrig;                // priming read for the 1st decimal number
-    while( !fin.eof() )             // loop while data exists
+    stream >> deciOrig;                // priming read for the 1st decimal number
+    while( !stream.eof() )             // loop while data exists
     {
         try
         {
-            if (!fin)
+            if (!stream)
                 throw str;
             s.push(deciOrig);
         }
@@ -62,10 +62,10 @@ void readData(LinkedStackType<int> & s)
         {
             cout << setw(63) << messageStr << endl;
             fout << setw(63) << messageStr << endl;
-            fin.clear();
-            fin.ignore(100, '\n');
+            stream.clear();
+            stream.ignore(100, '\n');
         }
-        fin >> deciOrig;            // read the next int
+        stream >> deciOrig;            // read the next int
     }
 }
 
@@ -133,7 +133,7 @@ void converter()
     cout << setw(65) << "Written by Gabriel Gerdes and Noah Teeter" << endl  << endl;
 
     LinkedStackType<int> stk;
-    readData(stk);
+    readData(stk, fin);
     stk.sortLinkedStack(); ///This needs to be replaced by the process of reading in from the second file.
     
     int base[] = {16, 8, 2};        //an array of bases used
